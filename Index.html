@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A209816 | Azmil Azman — e-Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #161920;
+    --card: #1e2230;
+    --border: #2a2f3e;
+    --primary: #5b7cfa;
+    --accent: #a78bfa;
+    --green: #34d399;
+    --text: #e8eaf0;
+    --muted: #7c85a2;
+    --serif: 'DM Serif Display', serif;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(13,15,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.2rem; color: var(--primary); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(91,124,250,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 800px; text-align: center; position: relative; }
+  .hero-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(91,124,250,0.12);
+    border: 1px solid rgba(91,124,250,0.3);
+    border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: .08em;
+    color: var(--primary); text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--primary); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 560px; margin: 0 auto 40px;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+    margin-bottom: 48px;
+  }
+  .meta-pill {
+    padding: 8px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.85rem; color: var(--muted);
+  }
+  .meta-pill strong { color: var(--text); }
+  .sdg-banner {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, rgba(52,211,153,0.1), rgba(91,124,250,0.1));
+    border: 1px solid rgba(52,211,153,0.25);
+    border-radius: 12px;
+    font-size: 0.95rem;
+  }
+  .sdg-badge {
+    background: var(--green); color: #000;
+    font-weight: 700; font-size: 0.75rem;
+    padding: 4px 10px; border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    margin-bottom: 48px;
+  }
+  hr.divider {
+    border: none; border-top: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: var(--primary); transform: translateY(-2px); }
+  .card-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
+  .card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+
+  /* LAB CARDS */
+  .lab-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .lab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .lab-card-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .lab-num {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem; color: #fff;
+    flex-shrink: 0;
+  }
+  .lab-card-header h3 { font-size: 1rem; font-weight: 600; }
+  .lab-card-header span { font-size: 0.8rem; color: var(--muted); }
+  .lab-card-body { padding: 20px 24px; }
+  .lab-card-body p { font-size: 0.875rem; color: var(--muted); margin-bottom: 16px; line-height: 1.65; }
+  .btn-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px;
+    background: rgba(91,124,250,0.1);
+    border: 1px solid rgba(91,124,250,0.3);
+    border-radius: 8px;
+    color: var(--primary); font-size: 0.8rem; font-weight: 600;
+    text-decoration: none; transition: background .2s;
+  }
+  .btn-link:hover { background: rgba(91,124,250,0.2); }
+  .placeholder-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px;
+    background: rgba(124,133,162,0.08);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted); font-size: 0.8rem;
+    cursor: default;
+  }
+
+  /* PROJECT CARDS */
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .project-header {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;
+  }
+  .project-header h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+  .project-header p { font-size: 0.875rem; color: var(--muted); max-width: 500px; }
+  .tag {
+    display: inline-block; padding: 4px 12px;
+    background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.3);
+    border-radius: 100px; font-size: 0.75rem; color: var(--accent); font-weight: 600;
+  }
+  .project-body { padding: 28px 32px; }
+  .project-features {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .feature-pill {
+    padding: 10px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.8rem; color: var(--text);
+  }
+  .feature-pill span { color: var(--green); margin-right: 6px; }
+  .lessons { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+  .link-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* REFLECTION */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--primary), var(--accent), transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 36px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -28px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--primary); border: 2px solid var(--bg);
+  }
+  .timeline-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+  .timeline-item p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+
+  /* SKILLS */
+  .skill-group { margin-bottom: 36px; }
+  .skill-group h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    padding: 8px 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; font-size: 0.85rem; color: var(--text);
+    transition: border-color .2s;
+  }
+  .skill-tag:hover { border-color: var(--primary); }
+
+  /* REFERENCES */
+  .ref-item {
+    padding: 20px 24px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; margin-bottom: 12px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .ref-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+  .ref-item p { font-size: 0.8rem; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 48px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 64px 24px; }
+    .hero { padding: 100px 24px 64px; }
+    .project-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Azmil Nazatul</div>
+  <ul class="nav-links">
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#labs">Labs</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="profile">
+  <div class="hero-inner">
+    <div class="hero-tag">e-Portfolio · TK2323 / TM2213</div>
+    <h1>Azmil <span>Azman</span></h1>
+    <p class="hero-sub">
+      Bachelor of Software Engineering student at Universiti Kebangsaan Malaysia,
+      building mobile applications that connect communities and drive real impact.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-pill"><strong>Matric No.</strong> &nbsp;A209816</div>
+      <div class="meta-pill"><strong>Programme</strong> &nbsp;Bachelor of Software Engineering</div>
+      <div class="meta-pill"><strong>Instructor</strong> &nbsp;Dr Nazatul</div>
+      <div class="meta-pill"><strong>University</strong> &nbsp;UKM</div>
+    </div>
+    <div class="sdg-banner">
+      <span class="sdg-badge">SDG 16</span>
+      <span>Peace, Justice & Strong Institutions — empowering citizens through transparent community feedback.</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- INTRO -->
+<section>
+  <div class="section-label">About Me</div>
+  <div class="section-title">Introduction & Learning Goals</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">Who I Am</div>
+      <p>I am a Software Engineering student with a strong interest in mobile application development. Throughout this course I have grown from building basic UI layouts to architecting fully connected Android apps with databases, cloud sync, REST APIs, and hardware sensor integration.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Learning Goals</div>
+      <p>My goals were to master Jetpack Compose for modern Android UI, understand the MVVM architecture pattern, integrate persistent storage with Room, connect to cloud services via Firebase, consume REST APIs with Retrofit, and utilize device hardware sensors in a meaningful way.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- LABS -->
+<section id="labs">
+  <div class="section-label">Lab Submissions</div>
+  <div class="section-title">Labs 1 — 5</div>
+  <div class="grid-2">
+
+    <!-- Lab 1 -->
+    <div class="lab-card">
+      <div class="lab-card-header">
+        <div class="lab-num">1</div>
+        <div>
+          <h3>UI Fundamentals</h3>
+          <span>Jetpack Compose Basics</span>
+        </div>
+      </div>
+      <div class="lab-card-body">
+        <p>Built my first Compose UI screens, exploring composable functions, modifiers, layouts (Column, Row, Box), and Material3 components. Learned how Compose replaces XML-based layouts with a declarative approach.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="	https://youtu.be/Xzr_gAS9G0E" class="btn-link" target="_blank">▶ Watch Demo</a>
+          <span class="placeholder-link">📸 Screenshots</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lab 2 -->
+    <div class="lab-card">
+      <div class="lab-card-header">
+        <div class="lab-num">2</div>
+        <div>
+          <h3>Interaction & State</h3>
+          <span>State Management</span>
+        </div>
+      </div>
+      <div class="lab-card-body">
+        <p>Explored state management in Compose using remember and mutableStateOf. Built interactive components that respond to user input, understanding how recomposition works and how state drives UI changes.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="https://youtu.be/E9NuCLtDCUs" class="btn-link" target="_blank">▶ Watch Demo</a>
+          <span class="placeholder-link">📸 Screenshots</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lab 3 -->
+    <div class="lab-card">
+      <div class="lab-card-header">
+        <div class="lab-num">3</div>
+        <div>
+          <h3>Material Design</h3>
+          <span>Theming & Components</span>
+        </div>
+      </div>
+      <div class="lab-card-body">
+        <p>Applied Material3 design principles — colour schemes, typography, shape systems, and component theming. Built a consistent visual identity and understood how MaterialTheme propagates tokens throughout the app.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="https://youtu.be/G5lSwcc48L8" class="btn-link" target="_blank">▶ Watch Demo</a>
+          <span class="placeholder-link">📸 Screenshots</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lab 4 -->
+    <div class="lab-card">
+      <div class="lab-card-header">
+        <div class="lab-num">4</div>
+        <div>
+          <h3>Navigation</h3>
+          <span>Multi-Screen Flow</span>
+        </div>
+      </div>
+      <div class="lab-card-body">
+        <p>Implemented Navigation Compose to build a multi-screen app. Learned route definitions, passing arguments between screens, NavBackStackEntry, and using a shared ViewModel across the navigation graph.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="	https://youtu.be/_rJektQFzdg" class="btn-link" target="_blank">▶ Watch Demo</a>
+          <span class="placeholder-link">📸 Screenshots</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lab 5 -->
+    <div class="lab-card" style="grid-column: 1 / -1;">
+      <div class="lab-card-header">
+        <div class="lab-num">5</div>
+        <div>
+          <h3>Room Database</h3>
+          <span>Local Persistence</span>
+        </div>
+      </div>
+      <div class="lab-card-body">
+        <p>Set up a full Room database pipeline — Entity, DAO, Database, and Repository. Integrated with ViewModel using Flow and StateFlow so the UI reacts automatically to database changes. Configured KSP for annotation processing and resolved AGP 9.x compatibility issues.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="	https://youtu.be/UF9YirCqnNI" class="btn-link" target="_blank">▶ Watch Demo</a>
+          <span class="placeholder-link">📸 Screenshots</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Project Submissions</div>
+  <div class="section-title">Project 1 & 2</div>
+
+  <!-- Project 1 -->
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <div style="margin-bottom:8px;"><span class="tag">Project 1</span></div>
+        <h3>People's Voice — Core App</h3>
+        <p>A multi-screen community feedback application built with Jetpack Compose and Navigation, featuring a shared ViewModel for state management across 5 screens.</p>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-features">
+        <div class="feature-pill"><span>✦</span>5 Screens</div>
+        <div class="feature-pill"><span>✦</span>Jetpack Compose</div>
+        <div class="feature-pill"><span>✦</span>Navigation Component</div>
+        <div class="feature-pill"><span>✦</span>Shared ViewModel</div>
+        <div class="feature-pill"><span>✦</span>Material3 Theme</div>
+      </div>
+      <p class="lessons"><strong style="color:var(--text);">Problem Statement:</strong> Citizens lack an accessible, structured channel to submit feedback, complaints, and suggestions to authorities. People's Voice addresses this gap through a clean, category-driven feedback interface.</p>
+      <p class="lessons"><strong style="color:var(--text);">Lessons Learned:</strong> Understood how Navigation Compose manages the back stack, how a single ViewModel can be shared across multiple screens, and how to structure a Compose app using separation of concerns.</p>
+      <div class="link-row">
+        <a href="	https://youtu.be/vZ35anHxTjI" class="btn-link" target="_blank">▶ VSR Video</a>
+        <a href="https://github.com/AzmilAzman/A209816_Azmil_DrNazatul_Project1" class="btn-link" target="_blank">⌥ GitHub Repo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 2 -->
+  <div class="project-card">
+    <div class="project-header">
+      <div>
+        <div style="margin-bottom:8px;"><span class="tag">Project 2</span></div>
+        <h3>People's Voice — Advanced Integration</h3>
+        <p>Extended Project 1 into a fully connected, persistent, and hardware-aware application with 8 screens, integrating all four technical pillars required for the assignment.</p>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-features">
+        <div class="feature-pill"><span>✦</span>8 Screens</div>
+        <div class="feature-pill"><span>✦</span>Room Database</div>
+        <div class="feature-pill"><span>✦</span>Firebase Firestore</div>
+        <div class="feature-pill"><span>✦</span>GNews REST API</div>
+        <div class="feature-pill"><span>✦</span>Camera Sensor</div>
+        <div class="feature-pill"><span>✦</span>GPS / Location</div>
+        <div class="feature-pill"><span>✦</span>Retrofit + Gson</div>
+        <div class="feature-pill"><span>✦</span>Repository Pattern</div>
+      </div>
+      <p class="lessons"><strong style="color:var(--text);">Problem Statement:</strong> Project 1 lacked persistence and real-world connectivity. Project 2 solves this by saving submissions locally with Room, syncing to Firebase Firestore for community visibility, fetching live Malaysian news via the GNews API, and attaching camera photos and GPS coordinates to each submission.</p>
+      <p class="lessons"><strong style="color:var(--text);">Lessons Learned:</strong> Gained hands-on experience with the full modern Android stack. Resolved complex Gradle/KSP/AGP compatibility issues, understood the Repository pattern as an abstraction over data sources, and learned how Flow and StateFlow drive reactive UI updates from a database.</p>
+      <div class="link-row">
+        <a href="YOUR_PROJECT2_YOUTUBE_LINK" class="btn-link" target="_blank">▶ VSR Video</a>
+        <a href="https://github.com/AzmilAzman/A209816_Azmil_DrNazatul_Project2" class="btn-link" target="_blank">⌥ GitHub Repo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- REFLECTION -->
+<section id="reflection">
+  <div class="section-label">Reflection & Learning Journey</div>
+  <div class="section-title">Growth from Lab 1 to Project 2</div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>Lab 1 — First Composable</h4>
+      <p>Started from zero with Jetpack Compose, learning that UI is just a function of state. Writing my first composable felt unfamiliar — years of XML thinking had to be unlearned. But the simplicity of declaring what the UI should look like, rather than how to build it, quickly clicked.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Lab 2 & 3 — State & Polish</h4>
+      <p>Understanding recomposition was the biggest mental shift. When state changes, Compose redraws — but only what needs to change. Material3 theming taught me how a consistent design system saves time and creates professional-looking apps with minimal effort.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Lab 4 & Project 1 — Architecture</h4>
+      <p>Navigation Compose and shared ViewModels introduced me to proper app architecture. I learned why separating UI logic from business logic matters — not just academically, but practically when debugging state issues across multiple screens.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Lab 5 — Persistence</h4>
+      <p>Room was the hardest lab. KSP configuration, Gradle compatibility with AGP 9.x, Flow integration — each step had its own challenge. Solving them built real confidence in working with Android's build system.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Project 2 — Full Stack Mobile</h4>
+      <p>Bringing together Room, Firebase, Retrofit, Camera, and GPS in one app showed me what production Android development looks like. Each pillar connected to a real user need. The debugging sessions — from KSP version mismatches to NewsAPI free-tier restrictions — taught me that engineering is mostly problem-solving, not just writing code.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>SDG 16 Impact</h4>
+      <p>People's Voice is more than an assignment. SDG 16 calls for transparent, inclusive institutions. An app that lets any citizen submit structured feedback, attach evidence via photo and location, and have it synced to a community database is a genuine step toward that goal — even at a small scale.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills & Tech Stack</div>
+  <div class="section-title">Technologies I Can Use Confidently</div>
+
+  <div class="skill-group">
+    <h4>UI & Framework</h4>
+    <div class="skill-tags">
+      <span class="skill-tag">Jetpack Compose</span>
+      <span class="skill-tag">Material3</span>
+      <span class="skill-tag">Navigation Compose</span>
+      <span class="skill-tag">Scaffold & TopAppBar</span>
+      <span class="skill-tag">LazyColumn</span>
+      <span class="skill-tag">Composable Functions</span>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <h4>Architecture & State</h4>
+    <div class="skill-tags">
+      <span class="skill-tag">MVVM Pattern</span>
+      <span class="skill-tag">ViewModel</span>
+      <span class="skill-tag">AndroidViewModel</span>
+      <span class="skill-tag">StateFlow</span>
+      <span class="skill-tag">Flow</span>
+      <span class="skill-tag">Repository Pattern</span>
+      <span class="skill-tag">Kotlin Coroutines</span>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <h4>Data & Cloud</h4>
+    <div class="skill-tags">
+      <span class="skill-tag">Room Database</span>
+      <span class="skill-tag">Firebase Firestore</span>
+      <span class="skill-tag">Retrofit</span>
+      <span class="skill-tag">Gson Converter</span>
+      <span class="skill-tag">OkHttp</span>
+      <span class="skill-tag">REST APIs</span>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <h4>Hardware & Platform</h4>
+    <div class="skill-tags">
+      <span class="skill-tag">Camera (FileProvider)</span>
+      <span class="skill-tag">GPS / FusedLocationProvider</span>
+      <span class="skill-tag">Android Permissions</span>
+      <span class="skill-tag">AndroidManifest</span>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <h4>Build & Tooling</h4>
+    <div class="skill-tags">
+      <span class="skill-tag">Kotlin</span>
+      <span class="skill-tag">Android Studio</span>
+      <span class="skill-tag">Gradle (KTS)</span>
+      <span class="skill-tag">KSP</span>
+      <span class="skill-tag">Version Catalog (TOML)</span>
+      <span class="skill-tag">Git & GitHub</span>
+      <span class="skill-tag">GitHub Pages</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- REFERENCES -->
+<section id="references">
+  <div class="section-label">Resources & References</div>
+  <div class="section-title">APIs, Libraries & Acknowledgements</div>
+
+  <div class="ref-item">
+    <div>
+      <h4>GNews API</h4>
+      <p>Live news feed for Malaysian top headlines — gnews.io</p>
+    </div>
+    <a href="https://gnews.io" class="btn-link" target="_blank">Visit →</a>
+  </div>
+
+  <div class="ref-item">
+    <div>
+      <h4>Firebase Firestore</h4>
+      <p>Cloud NoSQL database for community feedback sync — firebase.google.com</p>
+    </div>
+    <a href="https://firebase.google.com" class="btn-link" target="_blank">Visit →</a>
+  </div>
+
+  <div class="ref-item">
+    <div>
+      <h4>Jetpack Compose & Android Developers</h4>
+      <p>Official documentation for all Compose, Room, Navigation, and sensor APIs</p>
+    </div>
+    <a href="https://developer.android.com" class="btn-link" target="_blank">Visit →</a>
+  </div>
+
+  <div class="ref-item">
+    <div>
+      <h4>Retrofit by Square</h4>
+      <p>Type-safe HTTP client for Android — square.github.io/retrofit</p>
+    </div>
+    <a href="https://square.github.io/retrofit/" class="btn-link" target="_blank">Visit →</a>
+  </div>
+
+  <div class="ref-item">
+    <div>
+      <h4>AI Assistance — Claude by Anthropic</h4>
+      <p>Used for code generation assistance, debugging Gradle/KSP configuration, architecture guidance, and generating this e-Portfolio. All code was reviewed, understood, and adapted for this project.</p>
+    </div>
+    <a href="https://claude.ai" class="btn-link" target="_blank">Visit →</a>
+  </div>
+
+  <div class="ref-item">
+    <div>
+      <h4>Material Design 3</h4>
+      <p>Design system and component guidelines — m3.material.io</p>
+    </div>
+    <a href="https://m3.material.io" class="btn-link" target="_blank">Visit →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>A209816 · Azmil Nazatul · Bachelor of Software Engineering · UKM</p>
+  <p style="margin-top:8px;">TK2323 / TM2213 Mobile Programming · 2025</p>
+</footer>
+
+</body>
+</html>
